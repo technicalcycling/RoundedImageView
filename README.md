@@ -1,9 +1,10 @@
 RoundedImageView
 ================
 
-A fast ImageView (and Drawable) that supports rounded corners based on the original [example from Romain Guy](http://www.curious-creature.org/2012/12/11/android-recipe-1-image-with-rounded-corners/)
+A fast ImageView (and Drawable) that supports rounded corners (and ovals or circles) based on the original [example from Romain Guy](http://www.curious-creature.org/2012/12/11/android-recipe-1-image-with-rounded-corners/)
 
 ![RoundedImageView screenshot](https://raw.github.com/makeramen/RoundedImageView/master/screenshot.png)
+![RoundedImageView screenshot with ovals](https://raw.github.com/makeramen/RoundedImageView/master/screenshot-oval.png)
 
 There are many ways to create rounded corners in android, but this is the fastest and best one that I know of because it:
 * does **not** create a copy of the original bitmap
@@ -14,6 +15,7 @@ If you know of a better method, let me know and I'll implement it!
 
 Also has proper support for:
 * Borders (with Colors and ColorStateLists)
+* Ovals and Circles
 * All `ScaleType`s
   * Borders are drawn at view edge, not bitmap edge.
   * Except on edges where the bitmap is smaller than the view
@@ -21,12 +23,12 @@ Also has proper support for:
 * Anti-aliasing
 * Transparent backgrounds
 * Hardware acceleration
-* Support for TransitionDrawables (XML attrs only)
+* Support for LayerDrawables (including TransitionDrawables)
 
 
 Gradle
 ----
-RoundedImageView is available on Maven Central as well as [Ark](https://github.com/ark/ark).
+RoundedImageView is available on Maven Central.
 
 Add the following to your `build.gradle` to use:
 ```
@@ -35,11 +37,11 @@ repositories {
 }
 
 dependencies {
-    compile 'com.makeramen:roundedimageview:1.0.0'
+    compile 'com.makeramen:roundedimageview:1.2.4'
 }
 ```
 
-Maven
+Maven (Deprecated)
 ----
 
 Make sure you installed Android 4.2 from the [Android Maven Deployer](https://github.com/mosabua/maven-android-sdk-deployer)
@@ -60,7 +62,7 @@ If you want to use the library, add this dependency:
 <dependency>
     <groupId>com.makeramen</groupId>
     <artifactId>roundedimageview-apklib</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
     <type>apklib</type>
 </dependency>
 ```
@@ -78,7 +80,8 @@ Define in xml:
         app:corner_radius="30dip"
         app:border_width="2dip"
         app:border_color="#333333"
-        app:round_background="true" />
+        app:round_background="true"
+        app:is_oval="true" />
 ```
 
 Or in code:
@@ -92,12 +95,41 @@ iv.setBorderColor(Color.DKGRAY);
 iv.setRoundedBackground(true);
 iv.setImageDrawable(drawable);
 iv.setBackground(backgroundDrawable);
+iv.isOval(true);
 ```
 
-Known Issues
---------------------------------------
-* Programmatically setting attributes with TransitionDrawables not yet supported.
-* Only tested support for BitmapDrawables and TransitionDrawables (with BitmapDrawables in them). Other types might work but may have unexpected behavior.
+
+ChangeLog
+----------
+
+* **1.2.4**
+    * add basic support for ColorDrawable (and other drawables with -1 intrinsic dimens)
+    * implementation of the above is known to be buggy in many cases, pull requests welcome
+
+* **1.2.3**
+    * added rudimentary support for `setImageUri`. Performance of the function is probably poor and users should be cautious when using it.
+
+* **1.2.2**
+    * fix for incorrect radius on the image when there is a border
+    * add a `toBitmap()` function for easier Picasso and Ion compatibility
+
+* **1.2.1**
+    * default scaleType now FIT_CENTER (and never null) to match Android ([#27](https://github.com/vinc3m1/RoundedImageView/issues/27))
+
+* **1.2.0**
+    * add `setDither` and `setFilterBitmap` method support on RoundedDrawable for tuning bitmap scaling quality
+    * improved performance for `setImageResource`
+    * RoundedDrawable constructor is now public
+    * Fixed bug where artifact was downloading `aar.asc` file instead of aar. You no longer need to have `@aar` specified in the dependency
+
+* **1.1.0**
+    * LayerDrawable support (needs testing!)
+    * Refactored api to support chaining and remove repetitive code
+
+* **1.0.0**
+    * Initial release to maven central
+    * Programmatically setting attributes with TransitionDrawables not supported.
+
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vinc3m1/roundedimageview/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
