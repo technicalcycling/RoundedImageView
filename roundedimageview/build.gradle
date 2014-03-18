@@ -20,3 +20,4 @@ android {
             res.srcDirs = ['res']
         }
     }
+}
