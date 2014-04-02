@@ -193,10 +193,10 @@ public class RoundedImageView extends ImageView {
     return RoundedDrawable.fromDrawable(d);
   }
 
-  @Override
-  public void setBackground(Drawable background) {
-    setBackgroundDrawable(background);
-  }
+//  @Override
+//  public void setBackground(Drawable background) {
+//    setBackgroundDrawable(background);
+//  }
 
   private void updateDrawableAttrs() {
     updateAttrs(mDrawable, false);
@@ -228,13 +228,13 @@ public class RoundedImageView extends ImageView {
     }
   }
 
-  @Override
-  @Deprecated
-  public void setBackgroundDrawable(Drawable background) {
-    mBackgroundDrawable = RoundedDrawable.fromDrawable(background);
-    updateBackgroundDrawableAttrs();
-    super.setBackgroundDrawable(mBackgroundDrawable);
-  }
+//  @Override
+//  @Deprecated
+//  public void setBackgroundDrawable(Drawable background) {
+//    mBackgroundDrawable = RoundedDrawable.fromDrawable(background);
+//    updateBackgroundDrawableAttrs();
+//    super.setBackgroundDrawable(mBackgroundDrawable);
+//  }
 
   public int getCornerRadius() {
     return mCornerRadius;
